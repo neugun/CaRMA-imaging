@@ -12,7 +12,7 @@ from ij.process import ImageConverter
 #you need to open the TrakEM2 project, then run the script
 
 #the directory to save the 3D ROI masks
-savDir = "D:/Dropbox/Dropbox (HHMI)/PVH_Analysis/CaRMA_Wiki/Example_Data/ANM378231/ExVivo_InVivo_Reg/Reg/Reg_All_Planes/2p_ROIs/"
+savDir = "Z:/Zhenggang/CaRMA_imaging/Example_Data/ANM378231/ExVivo_InVivo_Reg/Reg/Reg_All_Planes/2p_ROIs/"
 
 #the number of neurons to be exported
 Label_Max = 99
