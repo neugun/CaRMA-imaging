@@ -18,6 +18,8 @@ function strDir_ImgWarp = Cluster_Scripts_Reg_SyN_2p_par_useRef(stPaths_G, strDi
 %
 % Saintgene 2016
 
+% bClusterOE = true; %Zhenggang 12192021
+
 if(nargin <7)
     bClusterOE = true; %output and error
 end

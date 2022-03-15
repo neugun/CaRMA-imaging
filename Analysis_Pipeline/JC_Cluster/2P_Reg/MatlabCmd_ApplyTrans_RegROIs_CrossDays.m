@@ -1,13 +1,28 @@
-strDir_ROIs = '/groups/sternson/sternsonlab/from_tier2/XSJ/PVH_Analysis/CaRMA_Wiki/Example_Data/ANM378231/ExVivo_InVivo_Reg/Reg/ZStacks_Xdays_Reg/2p_ROIs_Fear';
-strFn_Ref = '/groups/sternson/sternsonlab/from_tier2/XSJ/PVH_Analysis/CaRMA_Wiki/Example_Data/ANM378231/ExVivo_InVivo_Reg/Reg/ZStacks_Xdays_Reg/ANM378231_00002_reg_ZProj_ZStack_Correct_Avg8P_Ghrelin.tif';
-strDir_Trans = '/groups/sternson/sternsonlab/from_tier2/XSJ/PVH_Analysis/CaRMA_Wiki/Example_Data/ANM378231/ExVivo_InVivo_Reg/Reg/ZStacks_Xdays_Reg/ANM378231_00002_reg_ZProj_ZStack_Correct_Avg8P_Fear/ImgSeq';
+% strDir_ROIs = '/groups/sternson/sternsonlab/from_tier2/XSJ/PVH_Analysis/CaRMA_Wiki/Example_Data/ANM378231/ExVivo_InVivo_Reg/Reg/ZStacks_Xdays_Reg/2p_ROIs_Fear';
+% strFn_Ref = '/groups/sternson/sternsonlab/from_tier2/XSJ/PVH_Analysis/CaRMA_Wiki/Example_Data/ANM378231/ExVivo_InVivo_Reg/Reg/ZStacks_Xdays_Reg/ANM378231_00002_reg_ZProj_ZStack_Correct_Avg8P_Ghrelin.tif';
+% strDir_Trans = '/groups/sternson/sternsonlab/from_tier2/XSJ/PVH_Analysis/CaRMA_Wiki/Example_Data/ANM378231/ExVivo_InVivo_Reg/Reg/ZStacks_Xdays_Reg/ANM378231_00002_reg_ZProj_ZStack_Correct_Avg8P_Fear/ImgSeq';
+
+% strDir_ROIs = '/groups/sternson/sternsonlab/Zhenggang/CaRMApipeline/Example_Data/ANM378231/Fear_Imaging_Exp/ANM496190_visual_guidence/1213/Reg_Cat/Acrossdays/ROIs';
+% strFn_Ref = '/groups/sternson/sternsonlab/Zhenggang/CaRMApipeline/Example_Data/ANM378231/Fear_Imaging_Exp/ANM496190_visual_guidence/1213/Reg_Cat/Acrossdays/496190obs_91dem_fastz_00005_Comb_C1_reg_Avg_fixed.tif';
+% strDir_Trans = '/groups/sternson/sternsonlab/Zhenggang/CaRMApipeline/Example_Data/ANM378231/Fear_Imaging_Exp/ANM496190_visual_guidence/1213/Reg_Cat/Acrossdays/496190obs_91dem_fastz_00005_Comb_C1_reg_Avg_fixed/ImgSeq';
+% 
+% strDir_ROIs = '/groups/sternson/sternsonlab/Zhenggang/CaRMApipeline/Example_Data/ANM378231/Fear_Imaging_Exp/ANM496191/1213/Reg_Cat/Acrossdays/ROIs';
+% strFn_Ref = '/groups/sternson/sternsonlab/Zhenggang/CaRMApipeline/Example_Data/ANM378231/Fear_Imaging_Exp/ANM496191/1213/Reg_Cat/Acrossdays/496191_obs_spoutdem_fastz_00005_Comb_C1_reg_Avg_fixed.tif';
+% strDir_Trans = '/groups/sternson/sternsonlab/Zhenggang/CaRMApipeline/Example_Data/ANM378231/Fear_Imaging_Exp/ANM496191/1213/Reg_Cat/Acrossdays/496191_obs_spoutdem_fastz_00005_Comb_C1_reg_Avg_fixed/ImgSeq';
+
+strDir_ROIs = '/groups/sternson/sternsonlab/Zhenggang/CaRMApipeline/Example_Data/ANM378231/Fear_Imaging_Exp/492241/D9/Reg_Cat/Acrossdays/ROIs';
+% strFn_Ref = '/groups/sternson/sternsonlab/Zhenggang/CaRMApipeline/Example_Data/ANM378231/Fear_Imaging_Exp/492241/D7/Reg_Cat/Acrossdays/492241_social3_00007_Comb_C1_reg_Avg.tif';
+strFn_Ref = '/groups/sternson/sternsonlab/Zhenggang/CaRMApipeline/Example_Data/ANM378231/Fear_Imaging_Exp/492241/D9/Reg_Cat/Acrossdays/492241_social2_00007_Comb_C1_reg_Avg_fixed.tif';
+strDir_Trans = '/groups/sternson/sternsonlab/Zhenggang/CaRMApipeline/Example_Data/ANM378231/Fear_Imaging_Exp/492241/D9/Reg_Cat/Acrossdays/492241_social2_00007_Comb_C1_reg_Avg_fixed/ImgSeq';
+% strDir_Trans = '/groups/sternson/sternsonlab/Zhenggang/CaRMApipeline/Example_Data/ANM378231/Fear_Imaging_Exp/492241/D7/Reg_Cat/Acrossdays/492241_social3_00007_Comb_C1_reg_Avg_2X_moving/ImgSeq';
+
 bSave = false;
 
 strAffine_Exp = '00(\d{2})0GenericAffine\.mat';
 strWarp_Exp = '00(\d{2})1Warp\.nii\.gz';
 strFn_Exp = '00(\d{2})\.tif';
 
-clFns_Img = FindFiles_RegExp('N\d{1,3}\.tif', strDir_ROIs, false)';
+clFns_Img = FindFiles_RegExp('N\d{1,3}\_final.tif', strDir_ROIs, false)';
 
 strDir_RefSeq=TiffStack2ImgSeq_2p(strFn_Ref);
 

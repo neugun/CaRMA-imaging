@@ -1,4 +1,4 @@
-function CombImgs_From_Sub(strDir,strFn_RE,nColCount)
+function [matImgStack,strFn_Avg_Sav] = CombImgs_From_Sub(strDir,strFn_RE,nColCount)
 %combine images of individual imaging planes into a big image file so that
 %it can be easily examined simultaneously.
 %
@@ -49,5 +49,33 @@ strDir_Sav = fileparts(strDir);
 [~,strFn] = fileparts(clFns{1});
 strFn = strrep(strFn,['_S' num2str(vtCount(1))],'_Comb');
 strFn_Sav = [strDir_Sav filesep strFn '.tif'];
-writeTiffStack_UInt16(matImgOut,strFn_Sav);
+
+
+% writeTiffStack_UInt16(matImgOut,strFn_Sav);
+
+%         edit Zhenggang
+%         writeTiffStack_UInt16(matImgCh,strFn_Sav);
+%% edit by ZZG
+bZStack = 1;
+scale = 2;
+imgInfo.numSlices = nSubCount;
+imgInfo.numChans = 1;
+if(bZStack)
+    matImgStack = zeros(imgInfo.numLines,imgInfo.numPixels,imgInfo.numSlices,imgInfo.numChans,'uint16');
+    matImgStack_2X = zeros(imgInfo.numLines*scale,imgInfo.numPixels*scale,imgInfo.numSlices,imgInfo.numChans,'uint16');
+end
+nCh = 1;
+for nSlice = 1:nSubCount
+    matImg = readTiffStack(clFns{nSlice});
+    matImgCh_Avg = mean(matImg,3);
+%     matImgCh_Avg = max(matImg, [], 3);% Get maximum intensity projection
+    matImgCh_Avg_2X = imresize(matImgCh_Avg,scale);
+    matImgStack(:,:,nSlice,nCh) = matImgCh_Avg;
+    matImgStack_2X(:,:,nSlice,nCh) = matImgCh_Avg_2X;
+end
+
+strFn_Avg_Sav = [strDir_Sav filesep strFn '_Avg.tif'];
+writeTiffStack_UInt16(matImgStack,strFn_Avg_Sav);
+strFn_Avg_Sav = [strDir_Sav filesep strFn '_Avg_2X.tif'];
+writeTiffStack_UInt16(matImgStack_2X,strFn_Avg_Sav);
 

@@ -5,7 +5,8 @@ nLineCount = lengthOf(strLines);
 Cat_s = 0;
 strFns ="";
 setBatchMode(true);
-for (nLine=0;nLine<nLineCount;nLine++)
+print(strLines);
+for (nLine=3;nLine<nLineCount;nLine++)
 {
 	if(!startsWith(strLines[nLine],"#sav#:"))
 	{
@@ -13,6 +14,7 @@ for (nLine=0;nLine<nLineCount;nLine++)
 		filename = getInfo("image.filename");
 		print("Processing File: "+filename);
 		strFns = strFns+ " image" + (nLine-Cat_s+1) + "=" + filename;
+		close(strLines[nLine]);
 	}
 	else
 	{

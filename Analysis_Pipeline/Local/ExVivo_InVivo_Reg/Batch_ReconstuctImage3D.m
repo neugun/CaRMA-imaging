@@ -12,7 +12,10 @@ global strDir_CaRMA_Wiki
 clFns_Img = {
     [strDir_CaRMA_Wiki '\Example_Data\ANM378231\ExVivo_InVivo_Reg\ZStack_XDays\d6-Fear\ANM378231_d6-Fear.tif'];
     [strDir_CaRMA_Wiki '\Example_Data\ANM378231\ExVivo_InVivo_Reg\ZStack_XDays\d6-Fear\ANM378231_d6-Fear_Full.tif'];
-    [strDir_CaRMA_Wiki '\Example_Data\ANM378231\ExVivo_InVivo_Reg\ZStack_XDays\d10-Perfusion\ANM378231_d10-Perfusion.tif'];
+    [strDir_CaRMA_Wiki '\Example_Data\ANM378231\ExVivo_InVivo_Reg\ZStack_XDays\d10_Perfusion\ANM378231_d10_Perfusion.tif'];
+%     [strDir_CaRMA_Wiki '\Example_Data\ANM378231\Fear_Imaging_Exp\ANM496191\Zstack_Xdays\d3_perfusion\day3.tif'];
+%     [strDir_CaRMA_Wiki '\Example_Data\ANM378231\Fear_Imaging_Exp\ANM496191\Zstack_Xdays\d3_perfusion\day3.tif'];
+%     [strDir_CaRMA_Wiki '\Example_Data\ANM378231\Fear_Imaging_Exp\ANM496191\Zstack_Xdays\d3_perfusion\perfusion.tif'];
     };
     
 
@@ -21,7 +24,10 @@ clFns_Img = {
 clFns_Hdr = {
     [strDir_CaRMA_Wiki '\Example_Data\ANM378231\ExVivo_InVivo_Reg\ZStack_XDays\d6-Fear\ANM378231_d6-Fear_Header.mat'];
     [strDir_CaRMA_Wiki '\Example_Data\ANM378231\ExVivo_InVivo_Reg\ZStack_XDays\d6-Fear\ANM378231_d6-Fear_Full_Header.mat'];
-    [strDir_CaRMA_Wiki '\Example_Data\ANM378231\ExVivo_InVivo_Reg\ZStack_XDays\d10-Perfusion\ANM378231_d10-Perfusion_Header.mat'];
+    [strDir_CaRMA_Wiki '\Example_Data\ANM378231\ExVivo_InVivo_Reg\ZStack_XDays\d10_Perfusion\ANM378231_d10_Perfusion_Header.mat'];
+%     [strDir_CaRMA_Wiki '\Example_Data\ANM378231\Fear_Imaging_Exp\ANM496191\Zstack_Xdays\d3_perfusion\day3_Header.mat'];
+%     [strDir_CaRMA_Wiki '\Example_Data\ANM378231\Fear_Imaging_Exp\ANM496191\Zstack_Xdays\d3_perfusion\day3_Full_Header.mat'];
+%     [strDir_CaRMA_Wiki '\Example_Data\ANM378231\Fear_Imaging_Exp\ANM496191\Zstack_Xdays\d3_perfusion\perfusion_Header.mat'];
     };
 
 %the positions [X,Y] of the the image zstack centers
@@ -37,7 +43,7 @@ strFn_FOVInfo = [strDir_CaRMA_Wiki '\Example_Data\ANM378231\ExVivo_InVivo_Reg\FO
 
 nFC = length(clFns_Img);
 
-for nF=nFC%1:nFC
+for nF=1:nFC%1:nFC
     strFn_Img = clFns_Img{nF};
     strFn_Hdr = clFns_Hdr{nF};
     vtCtm = clCtms{nF};

@@ -4,26 +4,34 @@
 %%
 % set the parameters for the script
 
+dir_1='/groups/sternson/sternsonlab/Zhenggang/CaRMApipeline/Example_Data/ANM378231/Fear_Imaging_Exp/ANM496190_visual_guidence/';
+dir_1='/groups/sternson/sternsonlab/Zhenggang/CaRMApipeline/Example_Data/ANM378231/Fear_Imaging_Exp/ANM496191/';
+%
 % Directories containing images to be registered. Each directory contains images acquired from one animal on one day.
-clImgDirs = {
-    '/groups/sternson/sternsonlab/from_tier2/XSJ/PVH_Analysis/CaRMA_Wiki/Example_Data/ANM378231/Fear_Imaging_Exp/2P_Imaging';
-    };
+clImgDirs = {[dir_1 ,'1211'],[dir_1 ,'1212'],[dir_1,'1213']};
+
+% Directories containing images to be registered. Each directory contains
+% images acquired from one animal on one day. 
+% windows
+% clImgDirs = {
+%     'Z:\Zhenggang\CaRMApipeline\Example_Data\ANM378231\Fear_Imaging_Exp\ANM496190_visual_guidence\1211';
+%     };
 
 % Indexes of the images used to generate reference images for individual directories.
 % length(clTrials_GenRefGrp) must be equal to length(clImgDirs), the member
 % of clTrials_GenRefGrp can be vector, for example, clTrials_GenRefGrp = {[1 5],[2 3]};
-clTrials_GenRefGrp = {4};
+clTrials_GenRefGrp = {[5],[5],[9]}; % {[8 4],[5 4],[5 4]};
 
 % Indexes of the images used as reference images for individual directories.
 % length(clTrials_GenRefGrp) must be equal to length(clImgDirs), the member
 % of clTrials_GenRefGrp can be scalar.
-clTrial_Refs = {4};
-
+clTrial_Refs = {[5],[5],[9]};
 % Indexes of the images to be registered to the reference images within each directory.
 % length(clTrials_GenRefGrp) must be equal to length(clImgDirs), the member
 % of clTrials_GenRefGrp can be vector or scalar.
-clTrials_UseRefGrp = {5};
+clTrials_UseRefGrp = {[1 2 3 4 5 6 7 8 9 10],[1 2 3 4 5 6 7 8 9 10],[5 6 7 8 9 10 11 12 13 14]};
 %%
+%% ZhenggangZhu edit
 % initialize the global paths for the computing environment
 stPaths_G = Init_Cluster_GlobalPaths();
 
@@ -31,7 +39,9 @@ stPaths_G = Init_Cluster_GlobalPaths();
 % Batch-process for each directory
 nDayCount = length(clImgDirs);
 
-for nDay = 1:nDayCount
+% disp(nDayCount)
+
+for nDay = 2 %edit 20211225 :nDayCount 
     strImgDir_P = clImgDirs{nDay};%
     vtTrials_GenRefGrp = clTrials_GenRefGrp{nDay};
     iTrial_Ref = clTrial_Refs{nDay};
@@ -46,6 +56,7 @@ for nDay = 1:nDayCount
     strRefTrial = [];
     strDir_Ref =[];
     [vtTrials_GenRefGrp,idxTrials_GenRefGrp] = intersect(vtCounter,vtTrials_GenRefGrp);
+    disp(idxTrials_GenRefGrp)
     for nDir=1:length(idxTrials_GenRefGrp)
         idx = idxTrials_GenRefGrp(nDir);
         [strPath,strImgFn] = fileparts(clImgFns{idx});
@@ -60,7 +71,7 @@ for nDay = 1:nDayCount
             strTiffFn = clTiffFns{nFile};
             disp(['Processing file: ' strTiffFn]);
             tS = tic();
-            ImgFileReg_2p_par(stPaths_G, strTiffFn, 1, inf, 0, nStep,false,false);
+            ImgFileReg_2p_par(stPaths_G, strTiffFn, 1, inf, 0, nStep,true,false);%edit zzg false, false
             tElapse = toc(tS);
             disp(['Elapse Time: ' num2str(tElapse) ' Seconds']);
         end
@@ -98,7 +109,7 @@ for nDay = 1:nDayCount
             disp(['Processing file: ' strTiffFn]);
             tS = tic();
             for nStep=1:2
-                ImgFileReg_2p_par_useRef(stPaths_G, strTiffFn, 1, inf, 0, nStep,false,false);
+                ImgFileReg_2p_par_useRef(stPaths_G, strTiffFn, 1, inf, 0, nStep,true,false); %% edit 12182021
                 if(nStep==1)
                     [strPath_S,strImgFn_S] = fileparts(strTiffFn);
                     strRefFn = [strDir_Ref filesep strrep(strImgFn_S,num2str(iCounter,'%05d'),num2str(iTrial_Ref,'%05d')) '_reg_ZProj.tif'];

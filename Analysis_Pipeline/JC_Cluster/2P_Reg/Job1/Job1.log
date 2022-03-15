@@ -1,0 +1,54 @@
+lsgrun -p -m h07u16 /misc/local/matlab-2018b/bin/mw_smpd -s -phrase MATLAB_LSF -port 25110
+/misc/local/matlab-2018b/bin/mw_mpiexec -noprompt -l -exitcodes -phrase MATLAB_LSF -port 25110 -hosts 1 h07u16 1 '/misc/local/matlab-2018b'/bin/worker -parallel
+[0]                            < M A T L A B (R) >
+[0]                  Copyright 1984-2018 The MathWorks, Inc.
+[0]              R2018b Update 2 (9.5.0.1033004) 64-bit (glnxa64)
+[0]                              January 5, 2019
+[0] 
+[0]To get started, type doc.
+[0]For product information, visit www.mathworks.com.
+[0] 
+[0]	Non-Degree Granting Education License -- for use at non-degree granting, nonprofit,
+[0]	educational organizations only.  Not for government, commercial, or other organizational use.
+[0]Using 1 thread(s) on compute node.
+rank: node: exit code
+0: h07u16: 0
+mpiexec completed with exit code: 0
+lsgrun -p -m h07u16 /misc/local/matlab-2018b/bin/mw_smpd -shutdown -phrase MATLAB_LSF -port 25110
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@h07u16>
+Subject: Job 113615110: <Job1> in cluster <Janelia> Done
+
+Job <Job1> was submitted from host <h07u01> by user <zhuz2> in cluster <Janelia> at Mon Dec 20 01:50:35 2021
+Job was executed on host(s) <h07u16>, in queue <local>, as user <zhuz2> in cluster <Janelia> at Mon Dec 20 01:50:36 2021
+</groups/sternson/home/zhuz2> was used as the home directory.
+</groups/sternson/sternsonlab/Zhenggang/CaRMApipeline/Analysis_Pipeline/JC_Cluster/2P_Reg> was used as the working directory.
+Started at Mon Dec 20 01:50:36 2021
+Terminated at Mon Dec 20 03:26:31 2021
+Results reported at Mon Dec 20 03:26:31 2021
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+"/groups/sternson/sternsonlab/Zhenggang/CaRMApipeline/Analysis_Pipeline/JC_Cluster/2P_Reg/Job1/lsfWrapMpiexec.sh" worker -parallel
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   7.04 sec.
+    Max Memory :                                 18 MB
+    Average Memory :                             12.53 MB
+    Total Requested Memory :                     15360.00 MB
+    Delta Memory :                               15342.00 MB
+    Max Swap :                                   -
+    Max Processes :                              6
+    Max Threads :                                7
+    Run time :                                   5754 sec.
+    Turnaround time :                            5756 sec.
+
+The output (if any) is above this job summary.
+

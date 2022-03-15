@@ -8,15 +8,22 @@ initDir_CaRMA_Wiki();
 global strDir_CaRMA_Wiki;
 
 % parent directory containing the images to be concatenated
-strDir_Img_P = [strDir_CaRMA_Wiki '\Example_Data\ANM378231\Fear_Imaging_Exp\2P_Imaging'];
+% strDir_Img_P = [strDir_CaRMA_Wiki '\Example_Data\ANM378231\Fear_Imaging_Exp\ANM496190_visual_guidence\1211'];
+% strDir_Img_P = [strDir_CaRMA_Wiki '\Example_Data\ANM378231\Fear_Imaging_Exp\ANM496190_visual_guidence\1212'];
+% strDir_Img_P = [strDir_CaRMA_Wiki '\Example_Data\ANM378231\Fear_Imaging_Exp\ANM496190_visual_guidence\1213'];
+strDir_Img_P = [strDir_CaRMA_Wiki '\Example_Data\ANM378231\Fear_Imaging_Exp\ANM496191\1211'];
+strDir_Img_P = [strDir_CaRMA_Wiki '\Example_Data\ANM378231\Fear_Imaging_Exp\ANM496191\1212'];
+strDir_Img_P = [strDir_CaRMA_Wiki '\Example_Data\ANM378231\Fear_Imaging_Exp\ANM496191\1213'];
+strDir_Img_P = [strDir_CaRMA_Wiki '\Example_Data\ANM378231\Fear_Imaging_Exp\492241\D9'];
 
 % regular expression of the subfolders containing the registered splitted
-% images of individual imaging planes
+% images of individual imaging planesS
 strDir_RE = '_000(\d{2})_S$';
 
 % trials be concatenated
-vtCatTrials = 4:5;
-
+% vtCatTrials = 3:12;
+vtCatTrials = 5:14;
+vtCatTrials = 1:18;
 % image planes to be contanetated
 vtSlices = 1:8;
 %%
@@ -44,6 +51,7 @@ for nSlice = vtSlices
         mkdir(strDir_Sav);
     end
     C = strsplit(strFn,'_');
+    strFn_Sav = [C{1} '_' num2str(vtCatTrials(1)) '-' num2str(vtCatTrials(end)) '_' C{4} '_' C{5} '.tif'];
     strFn_Sav = [C{1} '_' num2str(vtCatTrials(1)) '-' num2str(vtCatTrials(end)) '_' C{3} '_' C{4} '.tif'];
     fprintf(fid,'#sav#:%s\n', [strDir_Sav filesep strFn_Sav]);
 end

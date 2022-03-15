@@ -1,22 +1,54 @@
 stPaths_G = Init_Cluster_GlobalPaths();
 
 clDirs = {
-    '/groups/sternson/sternsonlab/from_tier2/XSJ/PVH_Analysis/CaRMA_Wiki/Example_Data/ANM378231/ExVivo_InVivo_Reg/Reg/ZStack_FastZ_Reg';
-    };
-    
+    '/groups/sternson/sternsonlab/Zhenggang/CaRMApipeline/Example_Data/ANM378231/Fear_Imaging_Exp/ANM496190_visual_guidence/1213/Z_stack/1211';};
+clDirs = {
+    '/groups/sternson/sternsonlab/Zhenggang/CaRMApipeline/Example_Data/ANM378231/Fear_Imaging_Exp/ANM496190_visual_guidence/1213/Z_stack/1212';};
+clDirs = {
+    '/groups/sternson/sternsonlab/Zhenggang/CaRMApipeline/Example_Data/ANM378231/Fear_Imaging_Exp/ANM496190_visual_guidence/1213/Z_stack/1213';};
+clDirs = {
+    '/groups/sternson/sternsonlab/Zhenggang/CaRMApipeline/Example_Data/ANM378231/Fear_Imaging_Exp/ANM496191/1213/Reg_Cat';};
+clDirs = {
+    '/groups/sternson/sternsonlab/Zhenggang/CaRMApipeline/Example_Data/ANM378231/Fear_Imaging_Exp/492241/D7/Reg_Cat';};
+
+% fastZ    
+% clFns_RE ={
+%     'ANM378231_\S*_Avg(8P)|(_2X)\.tif$';
+%     };
+% clFns_RE ={
+% '496190_\S*_Avg(8P)|(_Avg_2X_1211)\.tif$';
+%     };
+% clFns_RE ={
+% '496190_\S*_Avg(8P)|(_Avg_2X_1212)\.tif$';
+%     };
+% clFns_RE ={
+% '496190_\S*_Avg(8P)|(_Avg_2X)\.tif$';
+%     };
+% clFns_RE ={
+% '496191_\S*_Avg(8P)|(_Avg_2X)\.tif$';
+%     };
+
+% between days
+% clRef_sfx = {
+% '496191_\S*_Avg(8P)|(_Avg_2X)\.tif$';
+%     };
 clFns_RE ={
-    'ANM378231_\S*_Avg(8P)|(_2X)\.tif$';
+'492241_\S*_Avg(8P)|(_Avg_2X)\.tif$';
     };
 
-clRef_sfx = {
+% stack
+% clFns_RE = {  
+%     '_Avg8P.tif';
+%     };
+clRef_sfx = {  
     '_Avg8P.tif';
     };
-
 
 nDirCount = length(clDirs);
 
 clTiffFns = cell(1,nDirCount);
 
+%% FAST
 for nDir =1:nDirCount
     strRegExp = clFns_RE{nDir};
     clTiffs = FindFiles_RegExp(strRegExp, clDirs{nDir}, false)';

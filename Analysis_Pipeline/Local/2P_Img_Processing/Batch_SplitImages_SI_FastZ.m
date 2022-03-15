@@ -8,8 +8,17 @@ initDir_CaRMA_Wiki();
 global strDir_CaRMA_Wiki
 
 %the directory containing ScanImage files to be splitted
-strDir = [strDir_CaRMA_Wiki '\Example Data\ANM378231\Fear_Imaging_Exp\2P Imaging'];
-
+% strDir = [strDir_CaRMA_Wiki '\Example_Data\ANM378231\Fear_Imaging_Exp\2P_Imaging'];
+strDir = [strDir_CaRMA_Wiki '\Example_Data\ANM378231\Fear_Imaging_Exp\new'];
+strDir = [strDir_CaRMA_Wiki '\Example_Data\ANM378231\Fear_Imaging_Exp\ANM492241'];
+strDir = [strDir_CaRMA_Wiki '\Example_Data\ANM378231\Fear_Imaging_Exp\ANM492241_hab_day7'];
+strDir = [strDir_CaRMA_Wiki '\Example_Data\ANM378231\Fear_Imaging_Exp\ANM492241_hunger_day1'];
+strDir = [strDir_CaRMA_Wiki '\Example_Data\ANM378231\Fear_Imaging_Exp\ANM492241_leptin_day2'];
+strDir = [strDir_CaRMA_Wiki '\Example_Data\ANM378231\Fear_Imaging_Exp\ANM492241_saline_day3'];
+strDir = [strDir_CaRMA_Wiki '\Example_Data\ANM378231\Fear_Imaging_Exp\ANM492241_ghrelin_day4'];
+strDir = [strDir_CaRMA_Wiki '\Example_Data\ANM378231\Fear_Imaging_Exp\ANM496190_visual_guidence\1211'];
+strDir = [strDir_CaRMA_Wiki '\Example_Data\ANM378231\Fear_Imaging_Exp\ANM496190_visual_guidence\1212'];
+strDir = [strDir_CaRMA_Wiki '\Example_Data\ANM378231\Fear_Imaging_Exp\ANM496190_visual_guidence\1213'];
 %regular expression of the file name of ScanImage files to be splitted
 strImg_RE = '\d{5}.tif$';
 

@@ -45,7 +45,9 @@ if(nargin < 5)
     bROIs_Sav = true;
 end
 
-strExp_Img = 'N(\d{1,3})_reg.tif$';
+strExp_Img = 'N(\d{1,3})_reg.tif$';   %for ref days
+strExp_Img = 'N(\d{1,3})_final.tif$'; %for other days 1211
+strExp_Img = 'N(\d{1,3})_final.tif$';  %for other days 1212
 
 clFns = FindFiles_RegExp(strExp_Img, strDir_ROIs, false)';
 [clFns,vtC]= SortFnByCounter(clFns,strExp_Img);
@@ -59,12 +61,19 @@ matROIs_r = false(size(matROI1,1),size(matROI1,2),size(matROI1,3),nRC);%ring
 SE_i = strel('disk',vtRing(1),8);
 SE_n = strel('disk',2,8);
 
-for nR=1:nRC
-    iC = vtC(nR);
-    strFn = clFns{nR};
+
+% edit ROIs Zhenggang
+List_Remove = [];
+List_ROIs = [1:length(clFns)+length(List_Remove)];
+List_ROIs = setdiff(List_ROIs,List_Remove);
+iC=0;
+for nR=List_ROIs
+% for nR=1:nRC
+    iC=iC+1;
+    strFn = clFns{iC};
     imgData = readTiffStack(strFn);
-    bwData = imfill(imgData == iC,'holes');
-    matROIs_f(:,:,:,nR)=imclose(bwData,SE_n);
+    bwData = imfill(imgData == vtC(iC),'holes');
+    matROIs_f(:,:,:,iC)=imclose(bwData,SE_n);
     
     lgF = any(bwData,[1 2]);
     bwData_i = bwData(:,:,lgF);
@@ -77,7 +86,7 @@ for nR=1:nRC
         cy = mean(YY(bwData_z));
         bwData_o(:,:,nZ) = hypot(XX-cx,YY-cy)<=vtRing(2);
     end
-    matROIs_r(:,:,lgF,nR) = bwData_o;
+    matROIs_r(:,:,lgF,iC) = bwData_o;
 end
 
 matROIs_t = imdilate(any(matROIs_f,4),SE_i);
@@ -87,18 +96,27 @@ if(bROIs_Sav)
     strDir_ROIs_Sav = [strDir_ROIs '\ROIs_Ex_v3'];
     mkdir(strDir_ROIs_Sav);
 end
-
-for nR=1:nRC
-    matROIs_r(:,:,:,nR) = matROIs_r(:,:,:,nR)&(~matROIs_t); %%background ring excludes ROIs
+iC = 0;
+for nR=List_ROIs
+    iC=iC+1;
+    matROIs_r(:,:,:,iC) = matROIs_r(:,:,:,iC)&(~matROIs_t); %%background ring excludes ROIs
     lgR = true(nRC,1);
-    lgR(nR) = false;
+    lgR(iC) = false;
     matROIs_o = any(matROIs_f(:,:,:,lgR),4);
-    matROIs(:,:,:,nR) = matROIs_f(:,:,:,nR)&(~matROIs_o);
+    matROIs(:,:,:,iC) = matROIs_f(:,:,:,iC)&(~matROIs_o);
+    
     if(bROIs_Sav)
+        if nR<10
         strFn_Sav = [strDir_ROIs_Sav '\N' num2str(nR) '_Ex.tif'];
-        writeTiffStack_UInt16(matROIs(:,:,:,nR),strFn_Sav)
+        writeTiffStack_UInt16(matROIs(:,:,:,iC),strFn_Sav)
         strFn_Sav = [strDir_ROIs_Sav '\Bkg' num2str(nR) '.tif'];
-        writeTiffStack_UInt16(matROIs_r(:,:,:,nR),strFn_Sav)
+        writeTiffStack_UInt16(matROIs_r(:,:,:,iC),strFn_Sav)
+        else
+        strFn_Sav = [strDir_ROIs_Sav '\N' num2str(nR) '_Ex.tif'];
+        writeTiffStack_UInt16(matROIs(:,:,:,iC),strFn_Sav)
+        strFn_Sav = [strDir_ROIs_Sav '\Bkg' num2str(nR) '.tif'];
+        writeTiffStack_UInt16(matROIs_r(:,:,:,iC),strFn_Sav)
+        end
     end
 end
 
@@ -121,17 +139,26 @@ else
     nFrameCount = size(matResp_All,3);
  %%   
     matResp = zeros(nRC,nFrameCount);
+    matResp_all = zeros(nRC,nFrameCount);
+    matResp_bg = zeros(nRC,nFrameCount);
     for nFrame=1:nFrameCount
         matResp_F = squeeze(matResp_All(:,:,nFrame,:));
-        for nR = 1:nRC
-            stats = regionprops(int8(matROIs(:,:,:,nR)),matResp_F,'MeanIntensity');
-            stats_r = regionprops(int8(matROIs_r(:,:,:,nR)),matResp_F,'MeanIntensity');
+        iC = 0;
+        for nR = List_ROIs
+            iC = iC +1;
+            stats = regionprops(int8(matROIs(:,:,:,iC)),matResp_F,'MeanIntensity');
+            stats_r = regionprops(int8(matROIs_r(:,:,:,iC)),matResp_F,'MeanIntensity');
             if(~isempty(stats))
-                matResp(nR,nFrame) = stats.MeanIntensity-stats_r.MeanIntensity;
+                matResp(iC,nFrame) = stats.MeanIntensity-stats_r.MeanIntensity;
+                matResp_all(iC,nFrame) = stats.MeanIntensity;
+                matResp_bg(iC,nFrame) = stats_r.MeanIntensity;
             end
         end
     end
     
+    %Zhenggang
     save([fileparts(strFn_Resp) filesep 'Resp_SubRing_v3.mat'],'matResp');
+    save([fileparts(strFn_Resp) filesep 'Resp_all_v3.mat'],'matResp_all');
+    save([fileparts(strFn_Resp) filesep 'Resp_bg_v3.mat'],'matResp_bg');
     disp('done');
 end

@@ -30,6 +30,9 @@ mkdir(strDir_Sav);
 
 bZStack = imgInfo.numFrames>1;
 
+%% edit by ZZG
+% bZStack = 1;
+
 if(bZStack)
     matImgStack = zeros(imgInfo.numLines,imgInfo.numPixels,imgInfo.numSlices,imgInfo.numChans,'uint16');
 end
@@ -38,6 +41,7 @@ for nSlice = 1:imgInfo.numSlices
     for nCh =1:imgInfo.numChans
         matImgCh = squeeze(Aout(:,:,nCh,:,nSlice,:));
         strFn_Sav = [strDir_Sav filesep strFn_p '_S' num2str(nSlice) '_C' num2str(nCh) '.tif'];
+%         edit Zhenggang
         writeTiffStack_UInt16(matImgCh,strFn_Sav);
         matImgCh_Avg = mean(matImgCh,3);
         strFn_Avg_Sav = [strFn_Sav(1:end-4) '_Avg.tif'];

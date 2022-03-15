@@ -12,14 +12,27 @@ function stPaths_G = Init_Cluster_GlobalPaths()
 %
 % Saintgene 2016
 
-stPaths_G.strName_User = 'xus';
+% stPaths_G.strName_User = 'xus';
+% 
+% stPaths_G.strDir_User = ['/groups/sternson/home/' stPaths_G.strName_User];
+% 
+% stPaths_G.strDir_Matlab = [stPaths_G.strDir_User '/scripts_s/Matlab'];
+% 
+% stPaths_G.strDir_ANTS = [stPaths_G.strDir_User '/scripts_s/ANTs2_2'];
+% 
+% stPaths_G.strIJPath = [stPaths_G.strDir_Matlab filesep 'ij.jar'];
+% 
+% stPaths_G.strMCR_Cache_root =['/scratch/' stPaths_G.strName_User '/mcr_cache_root.$LSB_BATCH_JID\n'];
+
+stPaths_G.strName_User = 'zhuz2';
 
 stPaths_G.strDir_User = ['/groups/sternson/home/' stPaths_G.strName_User];
 
-stPaths_G.strDir_Matlab = [stPaths_G.strDir_User '/scripts_s/Matlab'];
+stPaths_G.strDir_Matlab = [stPaths_G.strDir_User '/scripts/Matlab'];
 
-stPaths_G.strDir_ANTS = [stPaths_G.strDir_User '/scripts_s/ANTs2_2'];
+stPaths_G.strDir_ANTS = [stPaths_G.strDir_User '/scripts/ANTs2_2'];
 
 stPaths_G.strIJPath = [stPaths_G.strDir_Matlab filesep 'ij.jar'];
 
 stPaths_G.strMCR_Cache_root =['/scratch/' stPaths_G.strName_User '/mcr_cache_root.$LSB_BATCH_JID\n'];
+
